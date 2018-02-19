@@ -85,7 +85,6 @@ export default class Main extends Component {
         try {
             const value = await AsyncStorage.getItem('UserAccount');
             this.setState({ user: value });
-            alert(this.state.user.username);
         } catch (error) {
             alert(error);
         }

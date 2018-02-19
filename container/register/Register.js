@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import { NavigationActions } from 'react-navigation';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';

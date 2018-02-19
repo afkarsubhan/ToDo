@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import { NavigationActions } from 'react-navigation';
 import { DotIndicator } from 'react-native-indicators';
 
