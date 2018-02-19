@@ -20,6 +20,7 @@ export default class Login extends Component {
             username: '',
             password: '',
             isLoading: false,
+            isLogin: false,
         }
     }
 
@@ -30,6 +31,21 @@ export default class Login extends Component {
           alert(error);
         }
       }
+
+    async checkLogin(){
+        try{
+            const data = await AsyncStorage.getItem('UserAccount')
+            if(data != null){
+                this.props.navigation.navigate('Main');
+            }
+        } catch(error){
+            alert(error);
+        }
+    }
+
+    componentWillMount(){
+        this.checkLogin();
+    }
 
     login() {
         this.setState({isLoading: true});
@@ -45,7 +61,7 @@ export default class Login extends Component {
             alert('Password Cannot Be Empty !!');
             this.setState({isLoading: false});
         } else {
-        fetch('https://ngc-todo.herokuapp.com/api//users/login', {
+        fetch('https://ngc-todo.herokuapp.com/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,10 +77,10 @@ export default class Login extends Component {
                 if(responseJson.success == true){
                 const resetAction = NavigationActions.reset({
                     index: 0,
-                    actions: [NavigationActions.navigate({ routeName: 'Main' })],
+                    actions: [NavigationActions.navigate({ routeName: 'Main'})],
                   });
                   this.saveData(responseJson.data);
-                  this.props.navigation.dispatch(resetAction);       
+                  this.props.navigation.dispatch(resetAction);      
                 } else {
                     alert(responseJson.message)
                 }

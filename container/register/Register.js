@@ -82,8 +82,8 @@ export default class Register extends Component {
         }  else if (password.length == 0) {
             alert('Password Cannot Be Empty !!');
             this.setState({ isLoading: false });
-        } else if (password.length < 7) {
-            alert('Password Minimal 8 Character');
+        } else if (password.length < 7 && password.search(/\d/) != -1 && /[a-z]/.test(password) && /[A-Z]/.test(password)) {
+            alert('Password minimal harus 8 karakter dan berisi nomor, huruf, huruf kapital');
             this.setState({ isLoading: false });
         } else if (gender.length == 0) {
             alert('Gender Cannot Be Empty !!');
@@ -92,7 +92,7 @@ export default class Register extends Component {
             alert('Birthdate Cannot Be Empty !!');
             this.setState({ isLoading: false });
         } else {
-            fetch('https://ngc-todo.herokuapp.com/api//users/register', {
+            fetch('https://ngc-todo.herokuapp.com/api/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default class Register extends Component {
                     username: username,
                     password: password,
                     gender: gender,
-                    birthdate, birthdate,
+                    birthdate: birthdate,
                 }),
             })
                 .then((response) => response.json())
@@ -110,7 +110,7 @@ export default class Register extends Component {
                     if (responseJson.success == true) {
                         const resetAction = NavigationActions.reset({
                             index: 0,
-                            actions: [NavigationActions.navigate({ routeName: 'Home' })],
+                            actions: [NavigationActions.navigate({ routeName: 'Main' })],
                         });
                         this.saveData(responseJson.data);
                         console.log(responseJson.data)
